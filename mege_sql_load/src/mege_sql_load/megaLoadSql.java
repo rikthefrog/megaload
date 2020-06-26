@@ -8,17 +8,46 @@ public class megaLoadSql {
 
 	public static void main(String[] args) throws IOException {
 		
+		int j;
+		int k ;
+		String database;
 		
+		//check if args are correct 
 		
+		if(tryParseInt(args[0]) && args.length == 2) {
+			j = Integer.parseInt(args[0]);
+		}
+		else {
+			j = 1;
+		}
 		
-		int j = 651;
-		int k = 700;
+		if(tryParseInt(args[1]) && args.length == 2) {
+			k = Integer.parseInt(args[0]);
+		}
+		else {
+			k = 2;
+		}
+		
+		if(args.length == 2) {
+			}
+		else {
+			j = 0;
+			k = 0;
+		}
+		
+		if(args.length == 3) {
+			database = args[2].toString();
+		}
+		else {
+			database = "AdventureWorksDW";
+		}
+		
 		
 		String fileName = "/Users/rb186038/Downloads/megaSql" + j + "-" + k + ".sql";
 		
 		FileWriter fileWriter = new FileWriter(fileName);
 	    PrintWriter printWriter = new PrintWriter(fileWriter);
-	    printWriter.print("DATABASE AdventureWorksDW;\n");
+	    printWriter.print("DATABASE " + database + " ;\n");
 	    for(int i=j;i<=k;i++) {
 	    	    String table = "CREATE TABLE FactProductInventory_BlowUp" + i + " AS (SELECT  A1.ColId,\n";
 	    		printWriter.print(table);
@@ -80,7 +109,7 @@ public class megaLoadSql {
 	    printWriter.print(".RUN FILE _logon.txt;\n");
 	    printWriter.print("\n");
 	    printWriter.print("-- Create tables\n");
-	    printWriter.print("DATABASE AdventureWorksDW;\n");
+	    printWriter.print("DATABASE " + database + ";\n");
 	    for(int i=j;i<=k;i++) {
 		    printWriter.print(" CREATE MULTISET TABLE FactProductInventory_BlowUp" + i + " n");
 		    printWriter.print("    (\n");
@@ -128,6 +157,15 @@ public class megaLoadSql {
 	    printWriter.print("\n");
 	    printWriter.print("SELECT Current_Timestamp(2) AS \"finished loading\"\n");
 	    printWriter.close();
+	}
+	
+	static boolean tryParseInt(String value) {  
+	     try {  
+	         Integer.parseInt(value);  
+	         return true;  
+	      } catch (NumberFormatException e) {  
+	         return false;  
+	      }  
 	}
 
 }
