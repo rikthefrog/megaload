@@ -14,21 +14,21 @@ public class megaLoadSql {
 		
 		//check if args are correct 
 		
-		if(tryParseInt(args[0]) && args.length == 2) {
+		if(tryParseInt(args[0]) && args.length > 2) {
 			j = Integer.parseInt(args[0]);
 		}
 		else {
 			j = 1;
 		}
 		
-		if(tryParseInt(args[1]) && args.length == 2) {
-			k = Integer.parseInt(args[0]);
+		if(tryParseInt(args[1]) && args.length > 2) {
+			k = Integer.parseInt(args[1]);
 		}
 		else {
 			k = 2;
 		}
 		
-		if(args.length == 2) {
+		if(args.length > 2) {
 			}
 		else {
 			j = 0;
@@ -111,7 +111,7 @@ public class megaLoadSql {
 	    printWriter.print("-- Create tables\n");
 	    printWriter.print("DATABASE " + database + ";\n");
 	    for(int i=j;i<=k;i++) {
-		    printWriter.print(" CREATE MULTISET TABLE FactProductInventory_BlowUp" + i + " n");
+		    printWriter.print(" CREATE MULTISET TABLE FactProductInventory_BlowUp" + i + " \n");
 		    printWriter.print("    (\n");
 		    printWriter.print("      ColId VARCHAR(10) CHARACTER SET LATIN NOT CASESPECIFIC NOT NULL,  \n");
 		    printWriter.print("      ProductKey INTEGER NOT NULL,\n");
