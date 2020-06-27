@@ -1,0 +1,66 @@
+/*------------------------------------------------------------------------------
+This addtional file is need to create the CROSS JOIN table needed
+to blow up the table FactProductInventory.
+
+After this btq script the java program should run.
+
+Recommend to create 50 files per time.
+
+
+
+
+============================================================================*/
+/*------------------------------------------------------------------------------
+  ### ORIGINAL LICENSE ###
+  
+  This file is part of the Microsoft SQL Server Code Samples.
+
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+
+  This source code is intended only as a supplement to Microsoft
+  Development Tools and/or on-line documentation.  See these other
+  materials for detailed information regarding Microsoft code samples.
+
+  All data in this database is ficticious.
+
+  THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+  KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+  IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  PARTICULAR PURPOSE.
+============================================================================*/
+.SET SESSION TRANSACTION BTET;
+
+.SET ECHOREQ ERRORONLY;
+.SET MAXERROR 0;
+.SET TIMEMSG NONE;
+.SET QUIET ON ALL;
+
+-- logon and create database AdventureWorksDW
+.RUN FILE _logon.txt;
+
+-- Create tables
+
+CREATE MULTISET TABLE AdventureWorksDW.CrossJoinTable
+     (
+      colId VARCHAR(10) CHARACTER SET LATIN NOT CASESPECIFIC NOT NULL,
+      
+PRIMARY KEY ( colId ));
+
+
+.IMPORT vartext '|' FILE cross_join_table.csv
+.REPEAT *
+USING ("colId" VARCHAR(10)))
+INSERT INTO CrossJoinTable ("colId")
+VALUES (:"colId", :"colId");
+
+.SET QUIET OFF;
+
+SELECT CAST(Sum(CurrentPerm) AS INT) AS PermSpace, Cast(TableName AS VARCHAR(45)) AS TableName
+FROM dbc.TableSizeV
+WHERE DatabaseName = DATABASE
+GROUP BY TableName
+ORDER BY TableName
+;
+
+SELECT Current_Timestamp(2) AS "finished loading"
+;
