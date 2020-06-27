@@ -38,9 +38,11 @@ Recommend to create 50 files per time.
 -- logon and create database AdventureWorksDW
 .RUN FILE _logon.txt;
 
+DATABASE AdventureWorksDW;
+
 -- Create tables
 
-CREATE MULTISET TABLE AdventureWorksDW.CrossJoinTable
+CREATE MULTISET TABLE CrossJoinTable
      (
       colId VARCHAR(10) CHARACTER SET LATIN NOT CASESPECIFIC NOT NULL,
       
@@ -51,7 +53,7 @@ PRIMARY KEY ( colId ));
 .REPEAT *
 USING ("colId" VARCHAR(10)))
 INSERT INTO CrossJoinTable ("colId")
-VALUES (:"colId", :"colId");
+VALUES (:"colId");
 
 .SET QUIET OFF;
 
