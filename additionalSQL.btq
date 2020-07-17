@@ -51,7 +51,7 @@ PRIMARY KEY ( colId ));
 
 .IMPORT vartext '|' FILE cross_join_table.csv
 .REPEAT *
-USING ("colId" VARCHAR(10)))
+USING ("colId" VARCHAR(10))
 INSERT INTO CrossJoinTable ("colId")
 VALUES (:"colId");
 
