@@ -55,6 +55,44 @@ USING ("colId" VARCHAR(10))
 INSERT INTO CrossJoinTable ("colId")
 VALUES (:"colId");
 
+-- Setup the first Table with multiplied amount of records
+-- This table will be the base for all other tables
+
+CREATE MULTISET TABLE FactProductInventory_BlowUp1
+(
+ColId VARCHAR(10) CHARACTER SET LATIN NOT CASESPECIFIC NOT NULL,
+ProductKey INTEGER NOT NULL,
+DateKey INTEGER NOT NULL,
+MovementDate DATE FORMAT 'YYYY-MM-DD' NOT NULL,
+UnitCost NUMBER(18,4) NOT NULL COMPRESS (.41 ,.18 ,.36 ,.31 ,.26 ,.44 ,.21 ,.39 ,.16 ,.34 ,.29 ,.24 ,.42 ,.19 ,.37 ,.32 ,.27 ,.45 ,.22 ,.4 ,.17 ,.35 ,.3 ,.25 ,.43 ,.2 ,.38 ,.33 ,.51 ,.28 ,.23 ),
+UnitsIn INTEGER NOT NULL COMPRESS 0 ,
+UnitsOut INTEGER NOT NULL COMPRESS 0 ,
+UnitsBalance INTEGER NOT NULL COMPRESS (4 ,52 ,84 ,88 ,875 ,438 ,700 ),
+PRIMARY KEY ( ColId, ProductKey ,DateKey ));
+
+INSERT INTO FactProductInventory_BlowUp1
+(
+ColId,
+ProductKey,
+DateKey,
+MovementDate,
+UnitCost,
+UnitsIn,
+UnitsOut,
+UnitsBalance
+)
+SELECT A1.ColId,
+B1.ProductKey,
+B1.DateKey,
+B1.MovementDate,
+B1.UnitCost,
+B1.UnitsIn,
+B1.UnitsOut,
+B1.UnitsBalance
+FROM FactProductInventory B1
+CROSS JOIN
+CrossJoinTable A1;
+
 .SET QUIET OFF;
 
 SELECT CAST(Sum(CurrentPerm) AS INT) AS PermSpace, Cast(TableName AS VARCHAR(45)) AS TableName
