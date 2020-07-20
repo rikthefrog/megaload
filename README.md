@@ -13,6 +13,8 @@ You can download directly from this link https://github.com/dnoeth/AdventureWork
 
 Please read the insturctions on Dieters site to see which additional steps you need to do when executing the scripts on a Linux computer.
 
+Further run first the additional sql script to setup for boosting the database size. This script should have run successfully before you can run the generate scripts by the jave program.
+
 To run the jar from the command line do the following;
 
 java -jar megaSqlLoader.jar <parameter 1> <paramter 2> <paramater 3> <parameter 4>
